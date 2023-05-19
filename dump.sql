@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.14
+-- Dumped from database version 12.14 (Ubuntu 12.14-0ubuntu0.20.04.1)
 -- Dumped by pg_dump version 12.14 (Ubuntu 12.14-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
@@ -15,20 +15,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA public;
-
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
-
 
 SET default_tablespace = '';
 
@@ -117,14 +103,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (1, 1, '5bee4bbf-3c93-4848-bd9f-6cd1beb9ad94', '2023-05-19 20:47:22.033353');
+INSERT INTO public.sessions VALUES (1, 1, '4024aa67-18ee-414f-b531-96328d5a26c7', '2023-05-19 18:40:22.275175');
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'caio', 'caio@caio.com', '$2b$10$tYcGoXSPPz9ps8ftUJwGC.SKxX4z/khlSh0Lc4BLVR/Iy.utyKWLy', '2023-05-19 20:47:13.433634');
+INSERT INTO public.users VALUES (1, 'caio', 'caio@caio.com', '$2b$10$tzYAfBPySQSD9sDyDZNMU.nn.N4w5yoSvt.hM2H/a6qNkguMfIxIO', '2023-05-19 18:40:20.126452');
 
 
 --
@@ -138,7 +124,7 @@ SELECT pg_catalog.setval('public.sessions_id_seq', 1, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 
 --
@@ -171,16 +157,6 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.sessions
     ADD CONSTRAINT "sessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
-
-
---
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: -
---
-
-REVOKE ALL ON SCHEMA public FROM postgres;
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-GRANT ALL ON SCHEMA public TO caioczs;
-GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
