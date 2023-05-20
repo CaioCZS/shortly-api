@@ -19,6 +19,6 @@ urlRouter.post(
 )
 urlRouter.get("/urls/:id", getUrlById)
 urlRouter.get("/urls/open/:shortUrl", openUrlByShortUrl)
-urlRouter.delete("/urls/:id", deleteUrlById)
+urlRouter.delete("/urls/:id", authValidation, deleteUrlById)
 
 export default urlRouter
