@@ -53,6 +53,40 @@ ALTER SEQUENCE public.sessions_id_seq OWNED BY public.sessions.id;
 
 
 --
+-- Name: urls; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.urls (
+    id integer NOT NULL,
+    url text NOT NULL,
+    "userId" integer,
+    "visitCount" integer DEFAULT 0,
+    "shortUrl" text NOT NULL,
+    "createdAt" timestamp without time zone DEFAULT now()
+);
+
+
+--
+-- Name: urls_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.urls_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: urls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.urls_id_seq OWNED BY public.urls.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -93,6 +127,13 @@ ALTER TABLE ONLY public.sessions ALTER COLUMN id SET DEFAULT nextval('public.ses
 
 
 --
+-- Name: urls id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.urls ALTER COLUMN id SET DEFAULT nextval('public.urls_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -104,6 +145,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 INSERT INTO public.sessions VALUES (1, 1, '4024aa67-18ee-414f-b531-96328d5a26c7', '2023-05-19 18:40:22.275175');
+
+
+--
+-- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+INSERT INTO public.urls VALUES (2, 'https://erd.dbdesigner.net/designer/schema/1684519399-shortly', 1, 0, 'UMUSjW', '2023-05-20 14:25:15.395229');
+INSERT INTO public.urls VALUES (3, 'https://erd.dbdesigner.net/designer/schema/1684519399-shortly', 1, 0, 'RzMb6K', '2023-05-20 14:25:18.912931');
 
 
 --
@@ -121,6 +170,13 @@ SELECT pg_catalog.setval('public.sessions_id_seq', 1, true);
 
 
 --
+-- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.urls_id_seq', 3, true);
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -133,6 +189,14 @@ SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 ALTER TABLE ONLY public.sessions
     ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: urls urls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT urls_pkey PRIMARY KEY (id);
 
 
 --
@@ -157,6 +221,14 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.sessions
     ADD CONSTRAINT "sessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
+
+
+--
+-- Name: urls urls_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT "urls_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
 
 
 --
