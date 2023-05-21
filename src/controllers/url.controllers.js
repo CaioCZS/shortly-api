@@ -37,7 +37,27 @@ export async function getUrlById(req, res) {
 }
 
 export async function openUrlByShortUrl(req, res) {
-  res.send("openUrlByShortUrl")
+  const { shortUrl } = req.params
+  try {
+    const { rows: urlExist } = await db.query(
+      `SELECT * FROM urls WHERE "shortUrl"=$1;`,
+      [shortUrl]
+    )
+    if (urlExist.length === 0) {
+      return res.status(404).send("Url encurtada não existe")
+    }
+
+    await db.query(
+      `UPDATE urls SET "visitCount" = "visitCount" + 1 WHERE "shortUrl"=$1;`,
+      [shortUrl]
+    )
+
+    const url = urlExist[0].url
+
+    return res.redirect(url)
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
 }
 
 export async function deleteUrlById(req, res) {
