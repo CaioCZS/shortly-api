@@ -4,7 +4,6 @@ import { db } from "../database/database.connection.js"
 export async function postUrlShorten(req, res) {
   const { url } = req.body
   const session = res.locals.session
-  if (!session) return res.status(401).send("Voce não está logado")
   try {
     const shortUrl = nanoid(6)
 
