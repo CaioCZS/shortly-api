@@ -2,7 +2,7 @@ import { db } from "../database/database.connection.js"
 
 export async function getUserMe(req, res) {
   const session = res.locals.session
-
+  if (!session) return res.status(401).send("Voce não está logado")
   try {
     const upperBody = await db.query(
       `SELECT SUM(urls."visitCount") AS "visitCount",urls."userId" AS id,users.name FROM urls 
