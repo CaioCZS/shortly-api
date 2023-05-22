@@ -5,7 +5,7 @@ export async function getUserMe(req, res) {
 
   try {
     const upperBody = await db.query(
-      `SELECT SUM(urls."visitCount") AS "visitCount",urls."userId",users.name FROM urls 
+      `SELECT SUM(urls."visitCount") AS "visitCount",urls."userId" AS id,users.name FROM urls 
     JOIN users ON users.id = urls."userId"
     WHERE users.id=$1
     GROUP BY users.name,urls."userId";`,
