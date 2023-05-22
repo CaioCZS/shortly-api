@@ -12,8 +12,12 @@ export async function postUrlShorten(req, res) {
       `INSERT INTO urls (url,"userId","shortUrl") VALUES ($1,$2,$3)`,
       [url, session.userId, shortUrl]
     )
+    const { rows: idUrl } = await db.query(
+      `SELECT id FROM urls WHERE "shortUrl"=$1`,
+      [shortUrl]
+    )
 
-    res.status(201).send({ id: 1, shortUrl })
+    res.status(201).send({ id: idUrl[0].id, shortUrl })
   } catch (err) {
     res.status(500).send(err.message)
   }
